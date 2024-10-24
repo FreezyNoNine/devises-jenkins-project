@@ -1,26 +1,22 @@
+// app.js
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+const currencyController = require('./controllers/currencyController');
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Configuration de EJS pour le rendu des vues
-app.set('view engine', 'ejs');
-app.set('views', './views');
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs'); // Utilisation d'EJS comme moteur de template
+app.set('views', path.join(__dirname, 'views'));
 
-// Middleware pour servir les fichiers statiques (CSS, images, etc.)
-app.use(express.static('public'));
+// Routes
+app.get('/', currencyController.showHomePage);
+app.post('/convert', currencyController.convertCurrency);
 
-// Middleware pour parser les données des formulaires
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Importer le contrôleur
-const homeController = require('./controllers/homeController');
-
-// Route pour la page d'accueil
-app.get('/', homeController.showHomePage);
-
-// Lancer le serveur
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });

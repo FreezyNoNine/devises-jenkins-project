@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Currency Converter</h1>
+    <form action="/convert" method="POST">
+        <input type="number" name="amount" placeholder="Amount" required>
+        <select name="from" required>
+            <option value="">Select currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <!-- Add more currencies as needed -->
+        </select>
+        <select name="to" required>
+            <option value="">Select currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+            <!-- Add more currencies as needed -->
+        </select>
+        <button type="submit">Convert</button>
+    </form>
+
+    <% if (convertedAmount !== null) { %>
+        <h2><%= amount %> <%= from %> is <%= convertedAmount %> <%= to %></h2>
+    <% } %>
+</body>
+</html>
